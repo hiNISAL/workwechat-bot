@@ -4,6 +4,3 @@
 
 node_modules/
 package-lock.json
-
-# 需要提供给外部时，可以直接在外部提供 index.js 并打包到 dist
-dist/
