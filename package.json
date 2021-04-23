@@ -1,0 +1,42 @@
+{
+  "name": "workwechat-bot",
+  "version": "1.0.0",
+  "description": "企业微信群机器人消息发送辅助工具。",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "start": "npm run dev",
+    "build": "tsc",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "企业微信",
+    "群机器人",
+    "企业微信群机器人",
+    "workwechat",
+    "robot",
+    "workwechat robot",
+    "微信"
+  ],
+  "author": "RANDO",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@types/node": "^14.0.14",
+    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/parser": "^3.5.0",
+    "eslint": "^7.4.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
