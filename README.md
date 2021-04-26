@@ -11,8 +11,9 @@ npm i workwechat-bot
 ## 使用
 
 ```js
-// in node:
-// const Bot = require('workwechat-bot').default;
+// NodeJS 环境下引入：
+const Bot = require('workwechat-bot').default;
+// ESM：
 import Bot from 'workwechat-bot';
 
 const bot1 = new Bot([
