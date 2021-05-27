@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 interface AtOptions {
   mentioned?: string[];
@@ -128,6 +128,48 @@ class GroupBot {
         axios.post(hook, params);
       });
     });
+
+    if (clearMsgQueue) this.msgQueue = [];
+
+    return this;
+  }
+
+  async parallelSend(options: SendOptions = {}): Promise<GroupBot> {
+    const { clearMsgQueue = true } = options;
+
+    const tasks: Promise<AxiosResponse>[] = [];
+    this.hooks.forEach((hook): void => {
+      this.msgQueue.forEach(({ params }): void => {
+        tasks.push(axios.post(hook, params));
+      });
+    });
+
+    try {
+      await Promise.all(tasks);
+    } catch (e) {
+      throw e;
+    }
+
+    if (clearMsgQueue) this.msgQueue = [];
+
+    return this;
+  }
+
+  async seriesSend(options: SendOptions = {}): Promise<GroupBot> {
+    const { clearMsgQueue = true } = options;
+
+    const hooks = this.hooks;
+    const msgQueue = this.msgQueue;
+
+    for (let i = 0, hookLen = hooks.length; i < hookLen; i++) {
+      const hook = hooks[i];
+
+      for (let j = 0, queueLen = msgQueue.length; j < queueLen; j++) {
+        const { params } = msgQueue[j];
+
+        await axios.post(hook, params);
+      }
+    }
 
     if (clearMsgQueue) this.msgQueue = [];
 

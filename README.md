@@ -52,6 +52,34 @@ bot.markdown('# markdown').send({
 });
 ```
 
+### seriesSend
+
+顺序的发送消息。当对发送的消息有时序要求时可以用这个方法。条件以企业微信机器人响应为准。
+
+```js
+const bot = new Bot('bot-hook');
+
+await bot
+  .text('abc')
+  .at('user1')
+  .at('user2')
+  .seriesSend();
+```
+
+### parallelSend
+
+```js
+const bot = new Bot('bot-hook');
+
+await bot
+  .text('abc')
+  .at('user1')
+  .at('user2')
+  .parallelSend();
+
+console.log('next');
+```
+
 ### text
 
 发送文本消息。
