@@ -144,11 +144,7 @@ class GroupBot {
       });
     });
 
-    try {
-      await Promise.all(tasks);
-    } catch (e) {
-      throw e;
-    }
+    await Promise.all(tasks);
 
     if (clearMsgQueue) this.msgQueue = [];
 
