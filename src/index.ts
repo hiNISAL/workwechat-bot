@@ -1,4 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
+import url from 'url';
+import { upload } from './upload';
 
 interface AtOptions {
   mentioned?: string[];
@@ -14,6 +16,10 @@ interface NewOptions {
   url: string;
   desc?: string;
   cover?: string;
+}
+
+interface UploadFileOptions {
+  use
 }
 
 class GroupBot {
@@ -170,6 +176,47 @@ class GroupBot {
     if (clearMsgQueue) this.msgQueue = [];
 
     return this;
+  }
+
+  public file(mediaId: string): GroupBot {
+    const params = {
+      msgtype: 'file',
+      file: {
+        media_id: mediaId,
+      },
+    };
+
+    this.msgQueue.push({
+      params,
+    });
+
+    return this;
+  }
+
+  async uploadFile(file: unknown, filename: string): Promise<any> {
+    const tasks: Promise<any>[] = [];
+
+    this.hooks.forEach((hook: string) => {
+      const key = (new url.URL(hook)).searchParams.get('key') || '';
+
+      tasks.push(new Promise((resolve, reject) => {
+        upload({
+          file,
+          key,
+          filename,
+        }).then((data): void => {
+          data.hook = hook;
+          data.bot = hook;
+          resolve(data);
+        }).catch((e) => {
+          reject(e);
+        });
+      }));
+    });
+
+    const resolves = await Promise.all(tasks);
+
+    return resolves.length === 1 ? resolves[0] : resolves;
   }
 
   __clearMsgQueue(): GroupBot {

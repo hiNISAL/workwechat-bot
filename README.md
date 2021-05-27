@@ -174,6 +174,50 @@ const bot = new Bot('bot-hook');
 bot.markdown('# markdown').send();
 ```
 
+### uploadFile
+
+> 每个机器人只能发送自己上传的文件，串着发可能会浪费发送配额
+
+上传文件，获取 media_id。
+
+```js
+const bot = new Bot('bot-hook');
+
+const img = fs.createReadStream(path.resolve(__dirname, './test.jpg'));
+
+const { media_id } = await bot.uploadFile(img, 'test.jpg');
+```
+
+如果注册了多个机器人，每个机器人都会去做上传动作，最后 `uploadFile` 方法会返回多个响应组成的数组，顺序和传入的 hook 一致。
+
+```js
+const bot = new Bot([
+  'hook1',
+  'hook2',
+]);
+
+const img = fs.createReadStream(path.resolve(__dirname, './test.jpg'));
+
+const [
+  { media_id: mediaId1, bot: bot1 },
+  { media_id: mediaId2, bot: bot2 },
+] = await bot.uploadFile(img, 'test.jpg');
+```
+
+### file
+
+发送文件，需要提供 `media_id`。
+
+```js
+const bot = new Bot('bot-hook');
+
+const img = fs.createReadStream(path.resolve(__dirname, './test.jpg'));
+
+const { media_id } = await bot.uploadFile(img, 'test.jpg');
+
+bot.file(media_id).send();
+```
+
 ### __clearMsgQueue
 
 清空队列。
