@@ -1,6 +1,6 @@
 {
   "name": "workwechat-bot",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "企业微信群机器人消息发送辅助工具。",
   "main": "./dist/index.js",
   "scripts": {
@@ -18,6 +18,14 @@
     "workwechat robot",
     "微信"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiNISAL/workwechat-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hiNISAL/workwechat-bot/issues"
+  },
+  "homepage": "https://github.com/hiNISAL/workwechat-bot#readme",
   "author": "RANDO",
   "license": "MIT",
   "devDependencies": {
