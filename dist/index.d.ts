@@ -21,6 +21,10 @@ declare class GroupBot {
     news(options: NewOptions[] | NewOptions): GroupBot;
     markdown(content: string): GroupBot;
     send(options?: SendOptions): GroupBot;
+    parallelSend(options?: SendOptions): Promise<GroupBot>;
+    seriesSend(options?: SendOptions): Promise<GroupBot>;
+    file(mediaId: string): GroupBot;
+    uploadFile(file: unknown, filename: string): Promise<any>;
     __clearMsgQueue(): GroupBot;
 }
 export default GroupBot;
